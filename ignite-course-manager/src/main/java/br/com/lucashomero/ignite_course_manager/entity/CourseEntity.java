@@ -39,7 +39,7 @@ public class CourseEntity {
 	private LocalDateTime created_at;
 
 	@CreationTimestamp
-	private LocalDateTime upadated_at;
+	private LocalDateTime updated_at;
 	
 	
 	
