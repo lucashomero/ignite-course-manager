@@ -1,6 +1,10 @@
 package br.com.lucashomero.ignite_course_manager.services;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.lucashomero.ignite_course_manager.entity.CourseEntity;
@@ -22,6 +26,16 @@ public class CourseService {
 		return this.courseRepository.save(courseEntity);
 	}
 
-	
-	
+	public CourseEntity editCourse(UUID id, CourseEntity courseEntity) {
+		
+		Optional<CourseEntity> course = courseRepository.findById(id);
+		
+		if (course.isPresent()) {
+			courseEntity.setId(id);
+			courseEntity.updateTime(course.get());
+			courseRepository.save(courseEntity);	
+		}
+		
+		return courseEntity;
+	}	
 }

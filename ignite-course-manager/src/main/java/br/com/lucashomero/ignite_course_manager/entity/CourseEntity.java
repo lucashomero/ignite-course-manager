@@ -44,6 +44,11 @@ public class CourseEntity {
 	@CreationTimestamp
 	private LocalDateTime updated_at;
 	
+	public void updateTime(CourseEntity courseEntity) {
+		this.setUpdated_at(LocalDateTime.now());
+		this.setCreated_at(courseEntity.getCreated_at());
+	}
+	
 	
 	
 	
