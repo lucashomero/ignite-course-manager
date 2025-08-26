@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,6 +44,18 @@ public class CourseEntity {
 
 	@CreationTimestamp
 	private LocalDateTime updated_at;
+	
+	public void activateCourse() {
+		this.setActive(true);
+	}
+	
+	public void deactivateCourse() {
+		this.setActive(false);
+	}
+	
+	public void booleanCourse() {
+		this.setActive(active);
+	}
 	
 	public void updateTime(CourseEntity courseEntity) {
 		this.setUpdated_at(LocalDateTime.now());

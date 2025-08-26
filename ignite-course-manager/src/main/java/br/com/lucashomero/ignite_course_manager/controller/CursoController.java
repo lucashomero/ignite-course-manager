@@ -6,7 +6,9 @@ import java.util.UUID;
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -35,7 +37,7 @@ public class CursoController {
 	@GetMapping("/")
 	public ResponseEntity<Object> getAll(){
 
-		var allProducts = courseRepository.findAll();		
+		var allProducts = courseService.getAllCourses();	
 		return ResponseEntity.ok().body(allProducts);
 		
 	}
@@ -44,10 +46,8 @@ public class CursoController {
 	public ResponseEntity<Object> postCourse(@Valid @RequestBody CourseEntity courseEntity){
 		
 		try {
-			
 			var data = this.courseService.createCourse(courseEntity);
 			return ResponseEntity.ok().body(data);
-			
 			
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -64,8 +64,21 @@ public class CursoController {
 	}
 	
 	
+	@DeleteMapping("{id}")
+	public ResponseEntity<Object> deleteCourse(@PathVariable UUID id, @RequestBody CourseEntity courseEntity){
+		
+		var delete = this.courseService.deleteCourse(id, courseEntity);
+		return ResponseEntity.ok().body(delete);
+		
+	}
 	
-	
+	@PatchMapping("{id}/activate")
+	public ResponseEntity<Object> patchCourse(@PathVariable UUID id){
+		
+		var patch = this.courseService.patchCourse(id);
+		return ResponseEntity.ok().body(patch);
+		
+	}
 	
 	
 }
